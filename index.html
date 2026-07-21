@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Upload MP4 Recording</h2>
+  <input type="file" id="fileInput" accept="video/mp4" />
+  <button onclick="upload()">Upload</button>
+
+  <script>
+    async function upload() {
+      const file = document.getElementById("fileInput").files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("http://localhost:8000/process-mp4", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      window.location = data.download_url; // 下載 Word
+    }
+  </script>
+</body>
+</html>
